@@ -23,7 +23,7 @@ def _parse_args():
 def main():
     args = _parse_args()
     count = 0
-    with open('out.csv', 'w') as out_file:
+    with open('%s-%s.csv' % (args.month, args.year), 'w') as out_file:
         for line in fileinput.input([args.filename]):
             if not fileinput.isfirstline():
                 values = line.split(',')
