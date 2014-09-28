@@ -37,7 +37,7 @@ def main():
                     notes = values[8].strip('"').strip('\n')
                     try:
                         if args.month == date.split('/')[0] and args.year in date.split('/')[2]:
-                            if 'shared' in tag:
+                            if 'shared' in tag.lower():
                                 out_file.write('%s\n' % ','.join([date, vendor, cost, cat, tag, notes]))
                                 count += 1
                     except ValueError:
