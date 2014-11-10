@@ -26,9 +26,9 @@ def main():
     with open('%s-%s.csv' % (args.month, args.year), 'w') as out_file:
         for line in fileinput.input([args.filename]):
             if not fileinput.isfirstline():
-                values = line.split(',')
+                values = line.split(',', 8)
                 # date is MM/DD/YY
-                if len(values) == 9:
+                if len(values) >= 9:
                     date = values[0].strip('"')
                     vendor = values[1].strip('"')
                     cost = values[3].strip('"')
