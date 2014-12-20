@@ -17,6 +17,10 @@ def _parse_args():
                         type=str,
                         default=str(last_month_date.year),
                         help="Year to parse (YYYY)")
+    parser.add_argument('--tag',
+                        type=str,
+                        default='shared',
+                        help="Tag to filter by")
     parser.add_argument('filename',
                         help="The csv file to parse")
 
@@ -25,8 +29,6 @@ def _parse_args():
 
 def main():
     args = _parse_args()
-    count = 0
-    # with open('%s-%s.csv' % (args.month, args.year), 'w') as out_file:
     for line in fileinput.input([args.filename]):
         if not fileinput.isfirstline():
             values = line.split(',', 8)
@@ -40,9 +42,8 @@ def main():
                 notes = values[8].strip('"').strip('\n')
                 try:
                     if args.month == date.split('/')[0] and args.year in date.split('/')[2]:
-                        if 'shared' in tag.lower():
+                        if args.tag in tag.lower():
                             sys.stdout.write('%s\n' % ','.join([date, vendor, cost, cat, tag, notes]))
-                            count += 1
                 except ValueError:
                     print "Could not parse date: %s" % date
 
